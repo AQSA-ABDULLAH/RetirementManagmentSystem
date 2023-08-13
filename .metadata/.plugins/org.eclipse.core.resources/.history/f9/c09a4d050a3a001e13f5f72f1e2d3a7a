@@ -27,11 +27,8 @@ YOUR APPLICATION MAY BE REJECTED</p>
     <label for="name">Name of Applicant :</label>
     <input type="text" id="name" required><br>
     
-    <label for="fathername">Father Name :</label>
-    <input type="text" id="fathername" required><br>
-    
-    <label for="plno">Pl.No. :</label>
-    <input type="number" id="plno" required><br>
+    <label for="age">Age:</label>
+    <input type="number" id="age" required><br>
     
     <label for="cnic">CNIC# :</label>
     <input type="number" id="cnic" required><br>
