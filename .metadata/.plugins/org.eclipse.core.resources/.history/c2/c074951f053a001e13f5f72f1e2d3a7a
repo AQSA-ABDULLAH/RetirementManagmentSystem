@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Retirment Application</title>
+</head>
+<body>
+  <h1>Retirement Application</h1>
+  <form method="post" action="myservlet">
+	 
+	<p>THIS APPLICATION MUST BE ON FILE WITH THE RETIREMENT SYSTEM FOR AT LEAST 15 DAYS, BUT NO MORE THAN 90
+DAYS, BEFORE YOUR RETIREMENT CAN BECOME EFFECTIVE. IF YOU DO NOT ENTER AN EFFECTIVE RETIREMENT DATE
+YOUR APPLICATION MAY BE REJECTED</p> 
+	  
+	<label for="id">Application ID :</label>
+    <input type="number" id="id" required><br>  
+	  
+	<label for="type">Type of Retirment:</label>
+	<select id="fruits" name="fruits">
+		<option value="apple">Retiring</option>
+		<option value="banana">Banana</option>
+        <option value="orange">Orange</option>
+        <option value="grape">Grape</option>
+        <option value="strawberry">Strawberry</option>
+      </select><br>
+	 
+    <label for="name">Name of Pensioner :</label>
+    <input type="text" id="name" required><br>
+    
+    <label for="age">Age of Pensioner :</label>
+    <input type="number" id="age" required><br>
+
+    <label for="DateAppoinment">Date Of Appoinment:</label>
+    <input type="date" id="DateApponiment" required><br>
+    
+    <label for="DateRetirment">Date Of Retirment:</label>
+    <input type="date" id="DateRetirment" required><br>
+
+    <label for="BasicPay">Last Basic Pay:</label>
+    <input type="number" id="BasicPay" required>
+    <span>(without allowances)</span><br>
+    
+    <label for="QualificationPay">Qualification Pay:</label>
+    <input type="number" id="QualificationPay">
+    <span>(if any)</span><br>
+
+    <button type="button" onclick="calculatePension()">Calculate</button>
+  </form>
+
+  <p id="result"></p>
+</body>
+</html>

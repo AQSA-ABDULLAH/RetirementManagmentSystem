@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pension Calculator</title>
+<script>
+  function calculatePension() {
+    var initialAmount = parseFloat(document.getElementById('initialAmount').value);
+    var annualContribution = parseFloat(document.getElementById('annualContribution').value);
+    var interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
+    var years = parseInt(document.getElementById('years').value);
+
+    var totalAmount = initialAmount;
+    for (var i = 1; i <= years; i++) {
+      totalAmount += annualContribution;
+      totalAmount *= (1 + interestRate);
+    }
+
+    document.getElementById('result').innerHTML = 'Your pension after ' + years + ' years will be: $' + totalAmount.toFixed(2);
+  }
+</script>
+</head>
+<body>
+  <h1>Pension Calculator</h1>
+  <form method="post" action="myservlet">
+	  
+	<label for="type">Type of Pension:</label>
+	<select id="fruits" name="fruits">
+		<option value="apple">Retiring</option>
+		<option value="banana">Banana</option>
+        <option value="orange">Orange</option>
+        <option value="grape">Grape</option>
+        <option value="strawberry">Strawberry</option>
+      </select><br>
+	 
+    <label for="name">Name of Pensioner :</label>
+    <input type="text" id="name" required><br>
+
+    <label for="Date">Date Of Birth:</label>
+    <input type="date" id="Date" required><br>
+
+    <label for="interestRate">Annual Interest Rate (%):</label>
+    <input type="number" id="interestRate" step="any" required><br>
+
+    <label for="years">Years:</label>
+    <input type="number" id="years" step="1" required><br>
+
+    <button type="button" onclick="calculatePension()">Calculate</button>
+  </form>
+
+  <p id="result"></p>
+</body>
+</html>

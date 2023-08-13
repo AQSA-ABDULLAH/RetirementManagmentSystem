@@ -1,0 +1,40 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class DashboardServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    private static int totalProjects = 50;
+    private static int activeProjects = 10;
+    private static List<String> recentTasks = new ArrayList<>();
+
+    static {
+        recentTasks.add("Implement user authentication");
+        recentTasks.add("Optimize database queries");
+        recentTasks.add("Design responsive UI for dashboard");
+    }
+
+    public static int getTotalProjects() {
+        return totalProjects;
+    }
+
+    public static int getActiveProjects() {
+        return activeProjects;
+    }
+
+    public static List<String> getRecentTasks() {
+        return recentTasks;
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+}
+

@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Development Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Web Development Dashboard</h1>
+    
+    <h2>Project Statistics</h2>
+    <p>Total Projects: <%= DashboardServlet.getTotalProjects() %></p>
+    <p>Active Projects: <%= DashboardServlet.getActiveProjects() %></p>
+    
+    <h2>Recent Tasks</h2>
+    <ul>
+        <% for (String task : DashboardServlet.getRecentTasks()) { %>
+            <li><%= task %></li>
+        <% } %>
+    </ul>
+</body>
+</html>
