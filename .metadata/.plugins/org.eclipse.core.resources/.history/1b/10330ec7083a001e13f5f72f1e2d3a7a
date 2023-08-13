@@ -71,8 +71,8 @@ YOUR APPLICATION MAY BE REJECTED</p>
     <label for="service">Service From :</label>
     <input type="date" id="service" required><br>
     
-    <label for="receivedDate">Received Date :</label>
-    <input type="date" id="receivedDate" required><br>
+    <label for="service">Service From :</label>
+    <input type="date" id="service" required><br>
     
     <button type="button">Submit</button>
   </form>

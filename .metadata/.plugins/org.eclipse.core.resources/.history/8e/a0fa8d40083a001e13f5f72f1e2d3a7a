@@ -64,17 +64,10 @@ YOUR APPLICATION MAY BE REJECTED</p>
         <option>C-18</option>
         <option>C-19</option>
       </select><br>
-      
-    <label for="position">Title of Position :</label>
-    <input type="text" id="position" required><br>
-    
-    <label for="service">Service From :</label>
-    <input type="date" id="service" required><br>
-    
-    <label for="receivedDate">Received Date :</label>
-    <input type="date" id="receivedDate" required><br>
-    
-    <button type="button">Submit</button>
+
+    <button type="button">Calculate</button>
   </form>
+
+  <p id="result"></p>
 </body>
 </html>

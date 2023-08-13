@@ -46,35 +46,19 @@ YOUR APPLICATION MAY BE REJECTED</p>
     <label for="address">Address :</label>
     <input type="text" id="address" required>
     <br>
-    
-    <label for="factory">Factory</label>
-	<select id="factory" name="factory">
-		<option value="maa">MAA</option>
-		<option value="Co4">CO-4</option>
-        <option value="brasemill">Brase Mill</option>
-        <option value="textile">Textile</option>
-        <option value="explosive">explosive</option>
+
+    <label for="type">Type of Retirment:</label>
+	<select id="fruits" name="fruits">
+		<option value="apple">Retiring</option>
+		<option value="banana">Banana</option>
+        <option value="orange">Orange</option>
+        <option value="grape">Grape</option>
+        <option value="strawberry">Strawberry</option>
       </select><br>
 
-    <label for="department">Department/Shop:</label>
-	<select id="department" name="department">
-		<option>IT</option>
-		<option>C-13</option>
-        <option>C-14</option>
-        <option>C-18</option>
-        <option>C-19</option>
-      </select><br>
-      
-    <label for="position">Title of Position :</label>
-    <input type="text" id="position" required><br>
-    
-    <label for="service">Service From :</label>
-    <input type="date" id="service" required><br>
-    
-    <label for="receivedDate">Received Date :</label>
-    <input type="date" id="receivedDate" required><br>
-    
-    <button type="button">Submit</button>
+    <button type="button">Calculate</button>
   </form>
+
+  <p id="result"></p>
 </body>
 </html>
