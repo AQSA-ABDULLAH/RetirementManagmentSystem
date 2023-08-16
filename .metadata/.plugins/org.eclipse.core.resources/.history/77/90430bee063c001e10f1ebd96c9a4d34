@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Retirment Application</title>
+</head>
+<body>
+  <h1>Retirement Application</h1>
+  <form method="post" action="applicationForm.jsp">
+	 
+	<p>THIS APPLICATION MUST BE ON FILE WITH THE RETIREMENT SYSTEM FOR AT LEAST 15 DAYS, BUT NO MORE THAN 90
+DAYS, BEFORE YOUR RETIREMENT CAN BECOME EFFECTIVE. IF YOU DO NOT ENTER AN EFFECTIVE RETIREMENT DATE
+YOUR APPLICATION MAY BE REJECTED</p> 
+	  
+	<label for="id">Application name :</label>
+    <input type="number" name="id" required><br>  
+	 
+    <label for="name">Name of Applicant :</label>
+    <input type="text" name="name" required><br>
+    
+    <label for="fathername">Father Name :</label>
+    <input type="text" name="fathername" required><br>
+    
+    <label for="plno">Pl.No. :</label>
+    <input type="number" name="plno" required><br>
+    
+    <label for="cnic">CNIC# :</label>
+    <input type="number" name="cnic" required><br>
+    
+    <label for="phoneno">Telephone No :</label>
+    <input type="number" name="phoneno" required><br>
+    
+    <label for="cellno">Telephone No :</label>
+    <input type="number" name="cellno" required>
+    <span>(if any other)</span><br>
+
+    <label for="dateOfBirth">Date Of Birth:</label>
+    <input type="date" id="dateOfBirth" name="dateOfBirth" required><br>
+    
+    <label for="dateRetirement">Effective Retirment Date:</label>
+    <input type="date" id="dateRetirement" name="dateRetirement" required><br>
+    
+    <label for="address">Address :</label>
+    <input type="text" name="address" required>
+    <br>
+    
+    <label for="factory">Factory</label>
+	<select name="factory" name="factory">
+		<option value="maa">MAA</option>
+		<option value="Co4">CO-4</option>
+        <option value="brasemill">Brase Mill</option>
+        <option value="textile">Textile</option>
+        <option value="explosive">explosive</option>
+      </select><br>
+
+    <label for="department">Department/Shop:</label>
+	<select name="department" name="department">
+		<option>IT</option>
+		<option>C-13</option>
+        <option>C-14</option>
+        <option>C-18</option>
+        <option>C-19</option>
+      </select><br>
+      
+    <label for="position">Title of Position :</label>
+    <input type="text" name="position" required><br>
+    
+    <label for="service">Service From :</label>
+    <input type="date" id="service" name="service" required><br>
+    
+    <label for="receivedDate">Received Date :</label>
+    <input type="date" id="receivedDate" name="receivedDate" required><br>
+    
+    <input type="submit" value="Submit">
+  </form>
+
+<script>
+  // Function to format a date in the desired format (YYYY-MM-DD)
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  // Get references to the date input fields
+  const dateOfBirthInput = document.getElementById('dateOfBirth');
+  const dateRetirementInput = document.getElementById('dateRetirement');
+  const serviceInput = document.getElementById('service');
+  const receivedDateInput = document.getElementById('receivedDate');
+
+  // Add event listeners to update the input value with the formatted date
+  dateOfBirthInput.addEventListener('change', function () {
+    this.value = formatDate(new Date(this.value));
+  });
+
+  dateRetirementInput.addEventListener('change', function () {
+    this.value = formatDate(new Date(this.value));
+  });
+
+  serviceInput.addEventListener('change', function () {
+    this.value = formatDate(new Date(this.value));
+  });
+
+  receivedDateInput.addEventListener('change', function () {
+    this.value = formatDate(new Date(this.value));
+  });
+</script>
+
+</body>
+</html>

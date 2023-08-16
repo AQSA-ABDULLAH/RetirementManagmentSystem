@@ -1,21 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Web Development Dashboard</title>
+    <title>Dashboard Example</title>
+    <link rel="stylesheet" type="text/css" href="Dashboard.css">
 </head>
 <body>
-    <h1>Welcome to the Web Development Dashboard</h1>
+    <div id="header">
+        <h1>Dashboard</h1>
+    </div>
     
-    <h2>Project Statistics</h2>
-    <p>Total Projects: <%= DashboardServlet.getTotalProjects() %></p>
-    <p>Active Projects: <%= DashboardServlet.getActiveProjects() %></p>
+    <div id="sidebar">
+        <ul>
+            <li><a href="#">Retirement Application Form</a></li>
+            <li><a href="#">Retired Persons Records</a></li>
+            <li><a href="/PensionCalculator.html">Pension Calculator</a></li>
+            <li><a href="#">Pension Application Form</a></li>
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </div>
     
-    <h2>Recent Tasks</h2>
-    <ul>
-        <% for (String task : DashboardServlet.getRecentTasks()) { %>
-            <li><%= task %></li>
-        <% } %>
-    </ul>
+    <div id="content">
+        <div class="chart">Chart 1 Placeholder</div>
+        <div class="chart">Chart 2 Placeholder</div>
+        
+        <h2>Table</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Location</th>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td>30</td>
+                <td>New York</td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>28</td>
+                <td>Los Angeles</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

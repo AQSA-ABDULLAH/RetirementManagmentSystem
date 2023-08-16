@@ -1,0 +1,47 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<%@page import="java.sql.*" %>
+<% 
+try{
+	Class.forName("com.mysql.cj.jbdc.Driver");
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
+	Statement statement=con.createStatement();
+    
+	int id = Integer.parseInt(request.getParameter("id"));
+	String name = request.getParameter("name");
+	String fathername = request.getParameter("fathername");
+	int plno = Integer.parseInt(request.getParameter("plno"));
+	String cnic = request.getParameter("cnic");
+	String phoneno = request.getParameter("phoneno");
+	String cellno = request.getParameter("cellno");
+	String dateOfBirth = request.getParameter("datebirth");
+	String dateRetirement = request.getParameter("DateRetirment");
+	String address = request.getParameter("address");
+	String factory = request.getParameter("factory");
+	String department = request.getParameter("department");
+	String position = request.getParameter("position");
+	String service = request.getParameter("service");
+	String receivedDate = request.getParameter("receivedDate");
+	
+	String query="INSERT INTO reteirmentapplicationform VALUES ('"+id+"', '"+name+"', '"+fathername+"', '"+plno+"', '"+cnic+"', '"+phoneno+"', '"+cellno+"', '"+datebirth+"', '"+DateRetirment+"', '"+address+"', '"+factory+"', '"+department+"', '"+position+"', '"+service+"', '"+receivedDate+"')";
+	statement.executeUpdate(query);
+	response.sendRedirect("RetirementApplicationForm.html");
+}
+catch(Exception e)
+{
+	System.out.println("Error:"+e);
+}
+%>
+</body>
+</html>
