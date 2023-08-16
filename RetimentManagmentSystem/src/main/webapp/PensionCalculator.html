@@ -1,61 +1,243 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Pension Calculator</title>
-<script>
-  function calculatePension() {
-    var initialAmount = parseFloat(document.getElementById('initialAmount').value);
-    var annualContribution = parseFloat(document.getElementById('annualContribution').value);
-    var interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
-    var years = parseInt(document.getElementById('years').value);
+    <meta charset="ISO-8859-1">
+    <title>Pension Calculator</title>
+    <link rel="stylesheet" type="text/css" href="PensionCalculator.css">
 
-    var totalAmount = initialAmount;
-    for (var i = 1; i <= years; i++) {
-      totalAmount += annualContribution;
-      totalAmount *= (1 + interestRate);
-    }
-
-    document.getElementById('result').innerHTML = 'Your pension after ' + years + ' years will be: $' + totalAmount.toFixed(2);
-  }
-</script>
 </head>
+
 <body>
-  <h1>Pension Calculator</h1>
-  <form method="post" action="myservlet">
-	  
-	<label for="type">Type of Pension:</label>
-	<select id="fruits" name="fruits">
-		<option value="apple">Retiring</option>
-		<option value="banana">Banana</option>
-        <option value="orange">Orange</option>
-        <option value="grape">Grape</option>
-        <option value="strawberry">Strawberry</option>
-      </select><br>
-	 
-    <label for="name">Name of Pensioner :</label>
-    <input type="text" id="name" required><br>
-    
-    <label for="age">Age of Pensioner :</label>
-    <input type="number" id="age" required><br>
+    <h1>Pension Calculator</h1>
+    <form method="post" action="myservlet">
+        <label for="type">Type of Pension:</label>
+        <select id="type" name="type" onchange="showSection(this.value)">
+            <option value="first">In Service Death (Family Pension)</option>
+            <option value="second">Pensioners Death (Family Pension)</option>
+            <option value="third">Superannuation / retiring pension</option>
+        </select><br>
 
-    <label for="DateAppoinment">Date Of Appoinment:</label>
-    <input type="date" id="DateApponiment" required><br>
-    
-    <label for="DateRetirment">Date Of Retirment:</label>
-    <input type="date" id="DateRetirment" required><br>
+        <!--------------------------------Section First------------------------------->
 
-    <label for="BasicPay">Last Basic Pay:</label>
-    <input type="number" id="BasicPay" required>
-    <span>(without allowances)</span><br>
-    
-    <label for="QualificationPay">Qualification Pay:</label>
-    <input type="number" id="QualificationPay">
-    <span>(if any)</span><br>
+        <section id="first" class="section">
+            <div>
+                <label for="BasicPay">Last Basic Pay <span>(without allowances)</span>:</label>
+                <input type="number" id="BasicPay" required>
 
-    <button type="button" onclick="calculatePension()">Calculate</button>
-  </form>
+                <label for="DateAppointment_first">Date Of Appointment:</label>
+                <input type="date" id="DateAppointment_first" required>
 
-  <p id="result"></p>
+                <label for="DateDeath_first">Date Of Death:</label>
+                <input type="date" id="DateDeath_first" required>
+
+                <p id="result_first"></p>
+
+                <button type="button" onclick="calculateServiceDeathPension()">Calculate</button>
+            </div>
+            <div class="hidden">
+                <h1>Calculated Values</h1>
+
+                <label>Gross Pension</label>
+                <p id="Pension"></p>
+
+                <label>Gratuity</label>
+                <p id="Gratuity"></p>
+
+                <label>Monthly Family Pension</label>
+                <p id="FamilyPension"></p>
+            </div>
+        </section>
+
+        <!-- ------------------------------Section Second----------------------------- -->
+
+
+
+        <section id="second" class="section" style="display: none;">
+            <div>
+                <label for="BasicPay_Pensioners">Last Basic Pay <span>(without allowances)</span>:</label>
+                <input type="number" id="BasicPay_Pensioners" required>
+
+                <label for="NetPension">Net Pension<span>(without allowances)</span>:</label>
+                <input type="number" id="NetPension" required>
+
+                <label for="DateAppointment_second">Date Of Appointment:</label>
+                <input type="date" id="DateAppointment_second" required>
+
+                <label for="DateDeath_second">Date Of Death:</label>
+                <input type="date" id="DateDeath_second" required>
+
+                <label for="service">Service Period:</label>
+                <p id="result_second"></p>
+                <button type="button" onclick="calculatePensionersDeathPension()">Calculate</button>
+            </div>
+
+            <div class="hidden">
+                <h1>Calculated Values</h1>
+
+                <label>Gross Pension</label>
+                <p id="Pension_Pensioners"></p>
+
+                <label>Monthly Family Pension</label>
+                <p id="FamilyPension_Pensioners"></p>
+            </div>
+        </section>
+
+
+
+        <!-- -------------------------Section Third-------------------------- -->
+
+        <section id="third" class="section" style="display: none;">
+
+
+            <label for="BasicPay">Last Basic Pay <span>(without allowances)</span>:</label>
+            <input type="number" id="BasicPay" required>
+
+
+            <label for="DateAppointment_third">Date Of Appointment:</label>
+            <input type="date" id="DateAppointment_third" required>
+
+            <label for="DateDeath_third">Date Of Death:</label>
+            <input type="date" id="DateDeath_third" required>
+
+            <label for="service">Service Period:</label>
+            <p id="result_third"></p>
+
+            <button type="button" onclick="calculateServiceDeathPension()">Calculate</button>
+            </div>
+            <div class="hidden">
+                <h1>Calculated Values</h1>
+
+                <label>Gross Pension</label>
+                <p id="Pension"></p>
+
+                <label>Gratuity</label>
+                <p id="Gratuity"></p>
+
+                <label>Monthly Family Pension</label>
+                <p id="FamilyPension"></p>
+            </div>
+        </section>
+    </form>
+
+
+    <script>
+        //<----------------------In Service Death (Family Pension)---------------------->
+        function calculateServiceDeathPension() {
+            const basicPay = parseFloat(document.getElementById("BasicPay").value);
+            const dateAppointment = new Date(document.getElementById("DateAppointment").value);
+            const dateDeath = new Date(document.getElementById("DateDeath").value);
+            const timeDiff = Math.abs(dateDeath - dateAppointment);
+            const serviceYears = timeDiff / (1000 * 60 * 60 * 24 * 365); // Convert milliseconds to years
+
+            const pensionFormulaResult = (basicPay * 7 / 300) * serviceYears;
+
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = `Calculated Pension: ${pensionFormulaResult.toFixed(2)}`;
+
+            // Calculate Gratuity and Family Pension
+            const gratuity = (pensionFormulaResult * 1 / 4) * 12;
+            const familyPension = pensionFormulaResult * 0.75;
+
+            // Display the second div and calculated values
+            const firstDiv = document.querySelector("section > div:first-child");
+            const secondDiv = document.querySelector("section .hidden");
+            firstDiv.style.display = "none";
+            secondDiv.style.display = "block";
+
+            const pensionElement = document.getElementById("Pension");
+            pensionElement.textContent = `${pensionFormulaResult.toFixed(2)}`;
+
+            const gratuityElement = document.getElementById("Gratuity");
+            gratuityElement.textContent = `${gratuity.toFixed(2)}`;
+
+            const familyPensionElement = document.getElementById("FamilyPension");
+            familyPensionElement.textContent = `${familyPension.toFixed(2)}`;
+        }
+
+        //<-----------------------PensionersDeath---------------------------->
+
+        function calculatePensionersDeathPension() {
+            const basicPay = parseFloat(document.getElementById("BasicPay_Pensioners").value);
+            const dateAppointment = new Date(document.getElementById("DateAppointment_second").value);
+            const dateDeath = new Date(document.getElementById("DateDeath_second").value);
+            const timeDiff = Math.abs(dateDeath - dateAppointment);
+            const serviceYears = timeDiff / (1000 * 60 * 60 * 24 * 365); // Convert milliseconds to years
+
+            const pensionFormulaResult = (basicPay * 7 / 300) * serviceYears;
+
+            const resultElement = document.getElementById("result_second");
+            resultElement.textContent = `Calculated Pension: ${pensionFormulaResult.toFixed(2)}`;
+
+            // Calculate Family Pension
+            const netPension = parseFloat(document.getElementById("NetPension").value);
+            const familyPension = netPension * 0.75;
+
+            // Display the second div and calculated values
+            const secondDiv = document.querySelector("#second .hidden");
+            secondDiv.style.display = "block";
+
+            const pensionElement = document.getElementById("Pension_Pensioners");
+            pensionElement.textContent = `${pensionFormulaResult.toFixed(2)}`;
+
+            const familyPensionElement = document.getElementById("FamilyPension_Pensioners");
+            familyPensionElement.textContent = `${familyPension.toFixed(2)}`;
+        }
+
+
+
+
+
+        //Toggle Pension Types
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            document.getElementById(sectionId).style.display = 'block';
+
+            // Call the respective calculation function for the selected section
+            if (sectionId === 'first') {
+                calculateService('first');
+            } else if (sectionId === 'second') {
+                calculateService('second');
+            } else if (sectionId === 'third') {
+                calculateService('third');
+            }
+        }
+
+
+
+        //Calculate Service Years
+        function calculateService(sectionId) {
+            const dateAppointment = new Date(document.getElementById(`DateAppointment_${sectionId}`).value);
+            const dateDeath = new Date(document.getElementById(`DateDeath_${sectionId}`).value);
+
+            if (!isNaN(dateAppointment) && !isNaN(dateDeath)) {
+                const timeDiff = dateDeath - dateAppointment;
+                const yearsOfService = timeDiff / (1000 * 60 * 60 * 24 * 365.25);
+                document.getElementById(`result_${sectionId}`).textContent = `Years of Service: ${yearsOfService.toFixed(2)}`;
+            } else {
+                document.getElementById(`result_${sectionId}`).textContent = "0.00";
+            }
+        }
+
+
+
+        document.getElementById('DateAppointment_first').addEventListener('input', () => calculateService('first'));
+        document.getElementById('DateDeath_first').addEventListener('input', () => calculateService('first'));
+
+        document.getElementById('DateAppointment_second').addEventListener('input', () => calculateService('second'));
+        document.getElementById('DateDeath_second').addEventListener('input', () => calculateService('second'));
+
+        document.getElementById('DateAppointment_third').addEventListener('input', () => calculateService('third'));
+        document.getElementById('DateDeath_third').addEventListener('input', () => calculateService('third'));
+
+
+        calculateService();
+
+
+    </script>
 </body>
+
 </html>
