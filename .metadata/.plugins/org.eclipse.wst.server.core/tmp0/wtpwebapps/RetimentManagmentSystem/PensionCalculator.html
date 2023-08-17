@@ -49,10 +49,11 @@
             </div>
         </section>
 
+
+
+
+
         <!-- ------------------------------Section Second----------------------------- -->
-
-
-
         <section id="second" class="section" style="display: none;">
             <div>
                 <label for="BasicPay_Pensioners">Last Basic Pay <span>(without allowances)</span>:</label>
@@ -85,40 +86,44 @@
 
 
 
+
+
+
         <!-- -------------------------Section Third-------------------------- -->
 
         <section id="third" class="section" style="display: none;">
 
 
-            <label for="BasicPay">Last Basic Pay <span>(without allowances)</span>:</label>
-            <input type="number" id="BasicPay" required>
+            <div>
+                <label for="BasicPay_retiring">Last Basic Pay <span>(without allowances)</span>:</label>
+                <input type="number" id="BasicPay_retiring" required>
 
+                <label for="DateAppointment_third">Date Of Appointment:</label>
+                <input type="date" id="DateAppointment_third" required>
 
-            <label for="DateAppointment_third">Date Of Appointment:</label>
-            <input type="date" id="DateAppointment_third" required>
+                <label for="DateDeath_third">Date Of Death:</label>
+                <input type="date" id="DateDeath_third" required>
 
-            <label for="DateDeath_third">Date Of Death:</label>
-            <input type="date" id="DateDeath_third" required>
+                <p id="result_third"></p>
 
-            <label for="service">Service Period:</label>
-            <p id="result_third"></p>
-
-            <button type="button" onclick="calculateServiceDeathPension()">Calculate</button>
+                <button type="button" onclick="calculateretiringpension()">Calculate</button>
             </div>
             <div class="hidden">
                 <h1>Calculated Values</h1>
 
                 <label>Gross Pension</label>
-                <p id="Pension"></p>
+                <p id="Pension_retiring"></p>
 
                 <label>Gratuity</label>
-                <p id="Gratuity"></p>
+                <p id="Commutation"></p>
 
                 <label>Monthly Family Pension</label>
-                <p id="FamilyPension"></p>
+                <p id="monthlypension"></p>
             </div>
         </section>
     </form>
+
+
 
 
     <script>
@@ -155,6 +160,10 @@
             familyPensionElement.textContent = `${familyPension.toFixed(2)}`;
         }
 
+
+
+
+
         //<-----------------------PensionersDeath---------------------------->
 
         function calculatePensionersDeathPension() {
@@ -174,6 +183,8 @@
             const familyPension = netPension * 0.75;
 
             // Display the second div and calculated values
+            const firstDiv = document.querySelector("#second > div:first-child");
+            firstDiv.style.display = "none";
             const secondDiv = document.querySelector("#second .hidden");
             secondDiv.style.display = "block";
 
@@ -183,6 +194,44 @@
             const familyPensionElement = document.getElementById("FamilyPension_Pensioners");
             familyPensionElement.textContent = `${familyPension.toFixed(2)}`;
         }
+
+
+
+
+
+        //<-----------------------Superannuation / retiring pension---------------------------->
+        function calculateretiringpension() {
+            const basicPay = parseFloat(document.getElementById("BasicPay_retiring").value);
+            const dateAppointment = new Date(document.getElementById("DateAppointment_third").value);
+            const dateDeath = new Date(document.getElementById("DateDeath_third").value);
+            const timeDiff = Math.abs(dateDeath - dateAppointment);
+            const serviceYears = timeDiff / (1000 * 60 * 60 * 24 * 365); // Convert milliseconds to years
+
+            const pensionFormulaResult = (basicPay * 7 / 300) * serviceYears;
+
+            const resultElement = document.getElementById("result_third");
+            resultElement.textContent = `Calculated Pension: ${pensionFormulaResult.toFixed(2)}`;
+
+            // Calculate Commutation and Family Pension
+            const commutation = pensionFormulaResult * 0.35;
+            const  monthlypension = pensionFormulaResult * 0.65;
+
+            // Display the second div and calculated values
+            const firstDiv = document.querySelector("#third > div:first-child");
+            const secondDiv = document.querySelector("#third .hidden");
+            firstDiv.style.display = "none";
+            secondDiv.style.display = "block";
+
+            const pensionElement = document.getElementById("Pension_retiring");
+            pensionElement.textContent = `${pensionFormulaResult.toFixed(2)}`;
+
+            const commutationElement = document.getElementById("Commutation");
+            commutationElement.textContent = `${commutation.toFixed(2)}`;
+
+            const monthlypensionElement = document.getElementById("monthlypension");
+            monthlypensionElement.textContent = `${monthlypension.toFixed(2)}`;
+        }
+
 
 
 
@@ -221,9 +270,6 @@
                 document.getElementById(`result_${sectionId}`).textContent = "0.00";
             }
         }
-
-
-
         document.getElementById('DateAppointment_first').addEventListener('input', () => calculateService('first'));
         document.getElementById('DateDeath_first').addEventListener('input', () => calculateService('first'));
 

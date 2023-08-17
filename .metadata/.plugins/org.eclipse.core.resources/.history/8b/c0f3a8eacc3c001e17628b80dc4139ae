@@ -12,7 +12,7 @@
     <div id="sidebar">
         <ul>
             <li><a href="RetirementApplicationForm.html">Retirement Application Form</a></li>
-             <li><a href="RetiredPersonRecords.html">Retired Persons Records</a></li>
+             <li><a href="/RetiredPersonRecords.html">Retired Persons Records</a></li>
             <li><a href="PensionCalculator.html">Pension Calculator</a></li>
             <li><a href="#">Pension Application Form</a></li>
         </ul>
