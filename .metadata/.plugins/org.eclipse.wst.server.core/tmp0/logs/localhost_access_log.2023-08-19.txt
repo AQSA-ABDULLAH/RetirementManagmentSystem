@@ -1,0 +1,3 @@
+127.0.0.1 - - [19/Aug/2023:23:56:56 +0500] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [19/Aug/2023:23:56:57 +0500] "GET /RetimentManagmentSystem/NoticeBoard.html HTTP/1.1" 200 1907
+0:0:0:0:0:0:0:1 - - [19/Aug/2023:23:56:57 +0500] "GET /favicon.ico HTTP/1.1" 404 762
